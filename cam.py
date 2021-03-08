@@ -26,8 +26,8 @@ previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
     if x > 2500:
-        shrink_y = int(previous_img.shape[1] * scale * 0.15 * 500/(3000-x))
-        shrink_x = int(previous_img.shape[0] * scale * 0.15 * 500/(3000-x))
+        shrink_y = int(previous_img.shape[1] * scale *(1-0.15 * (x-2500)/500))
+        shrink_x = int(previous_img.shape[0] * scale *(1-0.15 * (x-2500)/500))
         shrink = cv2.resize(previous_img, (shrink_y, shrink_x))
         cv2.imshow('Cam', shrink)   
                             
