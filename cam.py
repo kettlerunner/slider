@@ -4,6 +4,7 @@ import glob
 import os
 import random
 
+output = cv2.namedWindow("Cam", WINDOW_NORMAL | WINDOW_FULLSCREEN );
 
 url = "https://dancrouse.com/slider"
 local_base = "images/"
@@ -28,7 +29,7 @@ while(True):
                         max_height / previous_img.shape[0])
             previous_img = cv2.resize(
                 previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
-        cv2.imshow('Cam', previous_img)
+        cv2.imshow(output, previous_img)
         x = 0
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
