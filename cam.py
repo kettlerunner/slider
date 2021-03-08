@@ -25,7 +25,9 @@ x = 0
 while(True): 
     x += 1
     if x > 2500:
-        shrink = cv2.resize(previous_img, (int(previous_img.shape[1] * scale * 0.15 * 500/(3000-x)), int(previous_img.shape[0] * scale * 0.15 * 500/(3000-x)))
+        shrink_y = int(previous_img.shape[1] * scale * 0.15 * 500/(3000-x))
+        shrink_x = int(previous_img.shape[0] * scale * 0.15 * 500/(3000-x))
+        shrink = cv2.resize(previous_img, (shrink_y, shrink_x))
         cv2.imshow('Cam', shrink)   
                             
     if x > 3000:
