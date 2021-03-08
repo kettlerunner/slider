@@ -35,7 +35,7 @@ while(True):
     #    shrink = cv2.resize(previous_img, (100, 100))
     #    cv2.imshow('Cam', shrink)   
                             
-    if x > 3000:
+    if x > 5000:
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
