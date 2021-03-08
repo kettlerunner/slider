@@ -6,7 +6,6 @@ import random
 import requests
 import json
 
-app = Flask(__name__)
 cap = cv2.VideoCapture(0)
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
