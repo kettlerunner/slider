@@ -19,8 +19,9 @@ for filename in filenames:
 
 while(True): 
     ret, frame = video.read() 
-    if ret == True:  
-        cv2.imshow('Cam', frame)
+    if ret == True: 
+        for filename in filenames:
+          cv2.imshow('Cam', cv2.imread(filename))
                       
         if cv2.waitKey(1) & 0xFF == ord('s'): 
             break
