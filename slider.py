@@ -8,10 +8,10 @@ import json
 import urllib
 
 url = "https://dancrouse.com/slider"
-local_base = "/images/"
+local_base = "images/"
 image_locations = "https://dancrouse.com/static/img/slider/"
 framename = "slideshow"
-path = "/images/"
+path = "images/"
 
 filenames = glob.glob(os.path.join(path, "*"))
 
@@ -19,7 +19,7 @@ j = 0
 cv2.namedWindow(framename, cv2.WINDOW_FREERATIO)
 frame = cv2.imread("frame.jpg")
 cv2.imshow(framename, frame)
-max_width = 800
+max_width = 700
 max_height = 480
 scale_x = 0.0
 scale_y = 0.0
