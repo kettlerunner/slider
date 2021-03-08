@@ -4,6 +4,7 @@ import glob
 import os
 import random
 import requests
+import json
 
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
