@@ -28,6 +28,7 @@ x = 0
 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
+    print(x)
     if x < 1000:
         ret, frame = cap.read()  # read the camera frame
         cv2.imshow('Cam', frame)
