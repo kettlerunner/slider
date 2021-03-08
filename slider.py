@@ -36,6 +36,7 @@ while True:
             local_filenames = glob.glob(os.path.join(path, "*"))
             for s in server_filenames:
                 if s not in [i.replace(local_base, "") for i in local_filenames]:
+                    print(s)
                     urllib.request.urlretrieve(
                         image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
                     filenames = glob.glob(os.path.join(path, "*"))
