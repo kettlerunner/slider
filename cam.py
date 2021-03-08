@@ -28,12 +28,12 @@ previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
     j += 1
-    #if x > 2500 and j > 1:
-    #    shrink_y = int(previous_img.shape[1] * scale *(1-0.15 * (x-2500)/500))
-    #    shrink_x = int(previous_img.shape[0] * scale *(1-0.15 * (x-2500)/500))
-    #    print(shrink_x, shrink_y)
-    #    shrink = cv2.resize(previous_img, (100, 100))
-    #    cv2.imshow('Cam', shrink)   
+    if x > 4500 and j > 1:
+        shrink_y = int(previous_img.shape[1]*(1-0.15 * (x-2500)/500))
+        shrink_x = int(previous_img.shape[0]*(1-0.15 * (x-2500)/500))
+        print(shrink_x, shrink_y)
+        shrink = cv2.resize(previous_img, (100, 100))
+        cv2.imshow('Cam', shrink)   
                             
     if x > 5000:
         buffer = requests.get(url).text
@@ -51,8 +51,8 @@ while(True):
                         max_height / previous_img.shape[0])
             previous_img = cv2.resize(
                 previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
-        cv2.imshow('Cam', previous_img)
         x = 0
+        cv2.imshow('Cam', previous_img)
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
