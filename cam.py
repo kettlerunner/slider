@@ -4,10 +4,6 @@ import numpy as np
 
 video = cv2.VideoCapture(0) 
 
-   
-size = (frame_width, frame_height)
-background = None
-
 while(True): 
     ret, frame = video.read() 
     if ret == True:  
