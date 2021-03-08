@@ -22,10 +22,12 @@ blurr = 0.0
 
 filenames = glob.glob(os.path.join(path, "*"))
 x = 0
+j = 0
 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
-    if x > 2500:
+    j += 1
+    if x > 2500 and j > 1:
         shrink_y = int(previous_img.shape[1] * scale *(1-0.15 * (x-2500)/500))
         shrink_x = int(previous_img.shape[0] * scale *(1-0.15 * (x-2500)/500))
         print(shrink_x, shrink_y)
