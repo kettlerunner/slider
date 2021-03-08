@@ -6,6 +6,8 @@ import random
 import requests
 import json
 
+app = Flask(__name__)
+cap = cv2.VideoCapture(0)
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
@@ -27,7 +29,10 @@ x = 0
 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
-                            
+    if x < 1000:
+        ret, frame = cap.read()  # read the camera frame
+        cv2.imshow('Cam', frame)
+        
     if x > 5000:
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
