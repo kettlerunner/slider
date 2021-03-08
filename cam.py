@@ -3,6 +3,7 @@ import numpy as np
 import glob
 import os
 import random
+import requests
 
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
@@ -23,7 +24,20 @@ filenames = glob.glob(os.path.join(path, "*"))
 x = 0
 while(True): 
     x += 1
+    if x > 2500:
+        shrink = cv2.resize(previous_img, (int(previous_img.shape[1] * scale * 0.15 * 500/(3000-x)), int(previous_img.shape[0] * scale * 0.15 * 500/(3000-x)))
+        cv2.imshow('Cam', shrink)   
+                            
     if x > 3000:
+        buffer = requests.get(url).text
+        server_filenames = json.loads(str(buffer)).get('files')
+        local_filenames = glob.glob(os.path.join(path, "*"))
+        for s in server_filenames:
+            if s not in [i.replace(local_base, "") for i in local_filenames]:
+                print(s)
+                urllib.request.urlretrieve(
+                    image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
+                filenames = glob.glob(os.path.join(path, "*"))
         previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
         if previous_img.shape[1] > max_width or previous_img.shape[0] > max_height:
             scale = min(max_width / previous_img.shape[1],
