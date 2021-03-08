@@ -4,7 +4,8 @@ import glob
 import os
 import random
 
-cv2.namedWindow('Cam', cv2.WND_PROP_FULLSCREEN)
+cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
+cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 url = "https://dancrouse.com/slider"
 local_base = "images/"
