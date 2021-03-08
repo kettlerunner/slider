@@ -1,6 +1,7 @@
 import cv2 
 import numpy as np
 import glob
+import os
 
 
 video = cv2.VideoCapture(0) 
