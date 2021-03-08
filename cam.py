@@ -22,6 +22,7 @@ blurr = 0.0
 
 filenames = glob.glob(os.path.join(path, "*"))
 x = 0
+previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
     if x > 2500:
