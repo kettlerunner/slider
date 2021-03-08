@@ -8,10 +8,10 @@ import json
 import urllib
 
 url = "https://dancrouse.com/slider"
-local_base = "images/"
+local_base = "/images/"
 image_locations = "https://dancrouse.com/static/img/slider/"
 framename = "slideshow"
-path = "images/"
+path = "/images/"
 
 filenames = glob.glob(os.path.join(path, "*"))
 
