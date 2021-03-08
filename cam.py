@@ -14,21 +14,13 @@ path = "images/"
 
 filenames = glob.glob(os.path.join(path, "*"))
 
-for filename in filenames:
-  print(filename)
-
 while(True): 
-    ret, frame = video.read() 
-    if ret == True: 
-        for filename in filenames:
-          cv2.imshow('Cam', cv2.imread(filename))
+    for filename in filenames:
+        cv2.imshow('Cam', cv2.imread(filename))
                       
-        if cv2.waitKey(1) & 0xFF == ord('s'): 
-            break
-    else: 
+    if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
-  
  
 video.release() 
 result.release() 
-cv2.destroyAllWindows() 
+cv2.destroyAllWindows()
