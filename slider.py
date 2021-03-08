@@ -29,7 +29,8 @@ blurr = 0.0
 
 while True:
     p_scale = 0
-    while x in range(0, 3000):
+    x = 0
+    while True:
         if x == 0:
             buffer = requests.get(url).text
             server_filenames = json.loads(str(buffer)).get('files')
