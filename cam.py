@@ -53,8 +53,6 @@ while(True):
                 previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
         x = 0
         cv2.imshow('Cam', previous_img)
-    else:
-        cv2.imshow('Cam', previous_img)
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
