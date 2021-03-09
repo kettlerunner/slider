@@ -28,7 +28,7 @@ j = 0
 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 scale = min(max_width / previous_img.shape[1],
                         max_height / previous_img.shape[0])
-            previous_img = cv2.resize(
+previous_img = cv2.resize(
                 previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
 while(True): 
     x += 1
