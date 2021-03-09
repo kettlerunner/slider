@@ -29,11 +29,10 @@ previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
     print(x)
-    if x < 1000:
+    if x < 100:
         ret, frame = cap.read()  # read the camera frame
         cv2.imshow('Cam', frame)
-        
-    if x > 5000:
+    elif x > 5000:
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
@@ -50,6 +49,8 @@ while(True):
             previous_img = cv2.resize(
                 previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
         x = 0
+        cv2.imshow('Cam', previous_img)
+    else:
         cv2.imshow('Cam', previous_img)
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
