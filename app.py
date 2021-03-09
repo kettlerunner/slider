@@ -12,21 +12,14 @@ def gen_frames():
         if not ret:
             break
         else:     
-            rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-            flipped_frame = cv2.flip(rotated_frame, 1)
-            ret, buffer = cv2.imencode('.jpg', flipped_frame)
-            frame = buffer.tobytes()
+            ret, buffer = cv2.imencode('.jpg', frame)
+            stream_frame = buffer.tobytes()
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                   b'Content-Type: image/jpeg\r\n\r\n' + stream_frame + b'\r\n')
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-
-@app.route('/video_feed')
-def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
