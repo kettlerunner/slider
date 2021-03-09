@@ -33,7 +33,7 @@ while(True):
         ret, frame = cap.read()  # read the camera frame
         rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
         cv2.imshow('Cam', rotated_frame)
-    elif x > 1000:
+    elif x > 200:
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
