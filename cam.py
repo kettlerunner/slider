@@ -12,10 +12,10 @@ cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 def insert_photo(bg_image, insert_image):
-  bg_width = bg_image.shape[0]
-  bg_height = bg_image.shape[1]
-  in_width = insert_image.shape[0]
-  in_height = insert_image.shape[1]
+  bg_width = bg_image.shape[1]
+  bg_height = bg_image.shape[0]
+  in_width = insert_image.shape[1]
+  in_height = insert_image.shape[0]
   
   left = int((bg_width - in_width)/2)
   top = int((bg_height - in_height)/2)
