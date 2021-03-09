@@ -70,6 +70,11 @@ while(True):
         x = 0
         slide = insert_photo(bg_frame, scaled_img)
         cv2.imshow('Cam', slide)
+    elif x > 1500:
+        fade_scale = 0.99
+        scaled_img = cv2.resize(slide, (int(slide.shape[1] * scale), int(slide.shape[0] * scale)))
+        slide = insert_photo(bg_frame, scaled_img)
+        cv2.imshow('Cam', slide)
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
