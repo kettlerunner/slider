@@ -71,7 +71,7 @@ while(True):
         slide = insert_photo(bg_frame, scaled_img)
         cv2.imshow('Cam', slide)
     elif x > 1500:
-        scaled_img = cv2.resize(slide, (slide.shape[1] - 1, slide.shape[0]  - 1)))
+        scaled_img = cv2.resize(slide, (slide.shape[1] - 1, slide.shape[0]  - 1))
         slide = insert_photo(bg_frame, scaled_img)
         cv2.imshow('Cam', slide)
                       
