@@ -44,9 +44,8 @@ j = 0
 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 scale = min(max_width / previous_img.shape[1],
                         max_height / previous_img.shape[0])
-previous_img = cv2.resize(
-                previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
-slide = insert_photo(bg_frame, previous_img)
+scaled_img = cv2.resize(previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
+slide = insert_photo(bg_frame, scaled_img)
 cv2.imshow('Cam', slide)
 while(True): 
     x += 1
@@ -64,12 +63,10 @@ while(True):
                 filenames = glob.glob(os.path.join(path, "*"))
         previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
         if previous_img.shape[1] > max_width or previous_img.shape[0] > max_height:
-            scale = min(max_width / previous_img.shape[1],
-                        max_height / previous_img.shape[0])
-            previous_img = cv2.resize(
-                previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
+            scale = min(max_width / previous_img.shape[1], max_height / previous_img.shape[0])
+            scaled_img = cv2.resize(previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
         x = 0
-        slide = insert_photo(bg_frame, previous_img)
+        slide = insert_photo(bg_frame, scaled_img)
         cv2.imshow('Cam', slide)
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
