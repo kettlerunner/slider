@@ -61,7 +61,8 @@ while(True):
                 urllib.request.urlretrieve(
                     image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
                 filenames = glob.glob(os.path.join(path, "*"))
-        previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
+        filename = filenames[random.randrange(0, len(filenames))]
+        previous_img = cv2.imread(filename)
         if previous_img.shape[1] > max_width or previous_img.shape[0] > max_height:
             scale = min(max_width / previous_img.shape[1], max_height / previous_img.shape[0])
             scaled_img = cv2.resize(previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
