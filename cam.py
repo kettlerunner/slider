@@ -32,7 +32,7 @@ framename = "slideshow"
 path = "images/"
 
 max_width = 600
-max_height = 500
+max_height = 480
 scale = 0.0
 alpha = 1.0
 blurr = 0.0
