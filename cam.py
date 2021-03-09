@@ -7,8 +7,23 @@ import requests
 import json
 import urllib
 
+bg_frame = cv2.imread("frame.jpg")
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
+def insert_photo(bg_image, insert_image):
+  bg_width = bg_image.shape[0]
+  bg_height = bg_image.shape[1]
+  in_width = insert_image.shape[0]
+  in_height = insert_image.shape[1]
+  
+  left = int((bg_width - in_width)/2)
+  top = int((bg_height - in_height)/2)
+  
+  overlay_image = bg_image.copy()
+  overlay_image[top:top+in_height, left:left+in_width] = insert_image
+  
+  return overlay_image
 
 url = "https://dancrouse.com/slider"
 local_base = "images/"
@@ -52,7 +67,8 @@ while(True):
             previous_img = cv2.resize(
                 previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
         x = 0
-        cv2.imshow('Cam', previous_img)
+        slide = insert_photo(bg_frame, previous_image)
+        cv2.imshow('Cam', slide)
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
