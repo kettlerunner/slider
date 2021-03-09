@@ -24,12 +24,14 @@ blurr = 0.0
 
 filenames = glob.glob(os.path.join(path, "*"))
 x = 0
+j = 0
 
 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 while(True): 
     x += 1
+    j += 1
     print(x)
-    if x < 100:
+    if x < 100 and j >1:
         ret, frame = cap.read()  # read the camera frame
         rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
         cv2.imshow('Cam', rotated_frame)
