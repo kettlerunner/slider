@@ -34,7 +34,8 @@ while(True):
     if x < 100 and j >1:
         ret, frame = cap.read()  # read the camera frame
         rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-        cv2.imshow('Cam', rotated_frame)
+        scaled_frame = cv2.resize(rotated_frame, (int(previous_img.shape[1] * 0.6), int(previous_img.shape[0] * 0.6)))
+        cv2.imshow('Cam', scaled_frame)
     elif x > 200:
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
