@@ -5,6 +5,7 @@ import os
 import random
 import requests
 import json
+import urllib
 
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
@@ -35,7 +36,6 @@ while(True):
     j += 1
     print(x)
     if x > 2000:
-        os.system("xscreensaver-command -deactivate")
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
