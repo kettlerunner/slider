@@ -46,6 +46,8 @@ scale = min(max_width / previous_img.shape[1],
                         max_height / previous_img.shape[0])
 previous_img = cv2.resize(
                 previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
+slide = insert_photo(bg_frame, previous_image)
+cv2.imshow('Cam', slide)
 while(True): 
     x += 1
     j += 1
