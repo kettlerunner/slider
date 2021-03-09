@@ -3,8 +3,8 @@ import cv2
 
 app = Flask(__name__)
 cap = cv2.VideoCapture(-1)
-cap.set(3, 1920)
-cap.set(4, 1080)
+cap.set(3, 640)
+cap.set(4, 480)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
 
