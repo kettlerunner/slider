@@ -11,8 +11,10 @@ def gen_frames():
         ret, frame = cap.read()  # read the camera frame
         if not ret:
             break
-        else:            
-            ret, buffer = cv2.imencode('.jpg', frame)
+        else:     
+            rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+            flipped_frame = cv2.flip(rotated_frame, 1)
+            ret, buffer = cv2.imencode('.jpg', flipped_frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
