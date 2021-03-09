@@ -72,11 +72,6 @@ while(True):
         x = 0
         slide = insert_photo(bg_frame, scaled_img)
         cv2.imshow('Cam', slide)
-    elif x > 1500:
-        fading_img = cv2.resize(slide, (slide.shape[1] - 1, slide.shape[0]  - 1)).copy()
-        buffer = insert_photo(bg_frame, fading_img)
-        slide = buffer.copy()
-        cv2.imshow('Cam', slide)
                       
     if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
