@@ -31,7 +31,7 @@ image_locations = "https://dancrouse.com/static/img/slider/"
 framename = "slideshow"
 path = "images/"
 
-max_width = 600
+max_width = 800
 max_height = 480
 scale = 0.0
 alpha = 1.0
