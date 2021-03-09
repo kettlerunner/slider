@@ -6,7 +6,6 @@ import random
 import requests
 import json
 
-cap = cv2.VideoCapture(0)
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
@@ -31,13 +30,7 @@ while(True):
     x += 1
     j += 1
     print(x)
-    if x < 100 and j >1:
-        ret, frame = cap.read()  # read the camera frame
-        rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-        scaled_frame = cv2.resize(rotated_frame, (int(rotated_frame.shape[1] * 0.6), int(rotated_frame.shape[0] * 0.6)))
-        flipped_frame = cv2.flip(scaled_frame, 1)
-        cv2.imshow('Cam', flipped_frame)
-    elif x > 1000:
+    if x > 2000:
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
