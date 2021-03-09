@@ -62,6 +62,7 @@ while(True):
                     image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
                 filenames = glob.glob(os.path.join(path, "*"))
         filename = filenames[random.randrange(0, len(filenames))]
+        print(filename)
         previous_img = cv2.imread(filename)
         if previous_img.shape[1] > max_width or previous_img.shape[0] > max_height:
             scale = min(max_width / previous_img.shape[1], max_height / previous_img.shape[0])
