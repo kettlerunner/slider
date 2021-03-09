@@ -4,13 +4,11 @@ import cv2
 app = Flask(__name__)
 cap = cv2.VideoCapture(0)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('tmp.avi', fourcc, 20.0 (640, 480))
 
 
 def gen_frames():
     while True:
         ret, frame = cap.read()  # read the camera frame
-        out.write(frame)
         if not ret:
             break
         else:
