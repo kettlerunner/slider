@@ -32,7 +32,6 @@ while(True):
     if x < 100:
         ret, frame = cap.read()  # read the camera frame
         cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-        frame = cv2.flip(frame, 1)
         cv2.imshow('Cam', frame)
     elif x > 5000:
         buffer = requests.get(url).text
