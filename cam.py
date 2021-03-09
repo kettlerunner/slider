@@ -37,7 +37,7 @@ while(True):
         scaled_frame = cv2.resize(rotated_frame, (int(rotated_frame.shape[1] * 0.6), int(rotated_frame.shape[0] * 0.6)))
         flipped_frame = cv2.flip(scaled_frame, 1)
         cv2.imshow('Cam', flipped_frame)
-    elif x > 200:
+    elif x > 1000:
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
