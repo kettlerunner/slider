@@ -56,20 +56,13 @@ while(True):
     j += 1
     print(x)
     if x > 2000:
-        previous_img = cv2.imread(filename)
-        if previous_img.shape[1] > max_width or previous_img.shape[0] > max_height:
-            scale = min(max_width / previous_img.shape[1], max_height / previous_img.shape[0])
-            scaled_img = cv2.resize(previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale))).copy()
-            current_width = scaled_img.shape[1] 
-            current_height = scaled_img.shape[0] 
-        else:
-            scaled_img = previous_img.copy()
-            current_width = scaled_img.shape[1] 
-            current_height = scaled_img.shape[0] 
         x = 0
+    elif x == 1:
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
     elif x == 1800:
+        previous_img = current_img.copy()
+        current_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
@@ -79,8 +72,15 @@ while(True):
                 urllib.request.urlretrieve(
                     image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
                 filenames = glob.glob(os.path.join(path, "*"))
-        filename = filenames[random.randrange(0, len(filenames))]
-        print(filename)
+        if current_img.shape[1] > max_width or current_img.shape[0] > max_height:
+            scale = min(max_width / current_img.shape[1], max_height / current_img.shape[0])
+            scaled_img = cv2.resize(current_img, (int(current_img.shape[1] * scale), int(current_img.shape[0] * scale))).copy()
+            current_width = scaled_img.shape[1] 
+            current_height = scaled_img.shape[0] 
+        else:
+            scaled_img = current_img.copy()
+            current_width = scaled_img.shape[1] 
+            current_height = scaled_img.shape[0] 
     elif x > 1900:
         current_width -= 1
         current_height -= 1 
