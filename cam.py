@@ -76,5 +76,9 @@ while(True):
         scaled_img = cv2.resize(scaled_img, (scaled_img.shape[1] - 1, scaled_img.shape[0] - 1))
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
+        
+    if cv2.waitKey(1) & 0xFF == ord('s'): 
+        break
+ 
                        
 cv2.destroyAllWindows()
