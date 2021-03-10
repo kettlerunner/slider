@@ -10,6 +10,8 @@ import urllib
 bg_frame = cv2.imread("frame.jpg")
 cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+current_width = 0
+current_height = 0
 
 def insert_photo(bg_image, insert_image):
   bg_width = bg_image.shape[1]
@@ -45,6 +47,8 @@ previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 scale = min(max_width / previous_img.shape[1],
                         max_height / previous_img.shape[0])
 scaled_img = cv2.resize(previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
+current_width = scaled_img.shape[1] 
+current_height = scaled_img.shape[0] 
 slide = insert_photo(bg_frame.copy(), scaled_img)
 cv2.imshow('Cam', slide)
 while(True): 
@@ -67,13 +71,19 @@ while(True):
         if previous_img.shape[1] > max_width or previous_img.shape[0] > max_height:
             scale = min(max_width / previous_img.shape[1], max_height / previous_img.shape[0])
             scaled_img = cv2.resize(previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale))).copy()
+            current_width = scaled_img.shape[1] 
+            current_height = scaled_img.shape[0] 
         else:
             scaled_img = previous_img.copy()
+            current_width = scaled_img.shape[1] 
+            current_height = scaled_img.shape[0] 
         x = 0
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
-    elif x > 1950:
-        scaled_img = cv2.resize(scaled_img, (scaled_img.shape[1] - 1, scaled_img.shape[0] - 1))
+    elif x > 1900:
+        current_width -= 1
+        current_height -= 1 
+        scaled_img = cv2.resize(scaled_img, (current_width, current_height))
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
         
