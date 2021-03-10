@@ -13,19 +13,25 @@ cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 current_width = 0
 current_height = 0
 
+def bincount_app(a):
+    a2D = a.reshape(-1,a.shape[-1])
+    col_range = (256, 256, 256) # generically : a2D.max(0)+1
+    a1D = np.ravel_multi_index(a2D.T, col_range)
+    return np.unravel_index(np.bincount(a1D).argmax(), col_range)
+
 def insert_photo(bg_image, insert_image):
-  bg_width = bg_image.shape[1]
-  bg_height = bg_image.shape[0]
-  in_width = insert_image.shape[1]
-  in_height = insert_image.shape[0]
-  
-  left = int((bg_width - in_width)/2)
-  top = int((bg_height - in_height)/2)
-  
-  overlay_image = bg_image.copy()
-  overlay_image[top:top+in_height, left:left+in_width] = insert_image
-  
-  return overlay_image
+    bg_width = bg_image.shape[1]
+    bg_height = bg_image.shape[0]
+    in_width = insert_image.shape[1]
+    in_height = insert_image.shape[0]
+
+    left = int((bg_width - in_width)/2)
+    top = int((bg_height - in_height)/2)
+
+    overlay_image = bg_image.copy()
+    overlay_image[top:top+in_height, left:left+in_width] = insert_image
+
+    return overlay_image
 
 url = "https://dancrouse.com/slider"
 local_base = "images/"
@@ -50,49 +56,50 @@ scale = min(max_width / previous_img.shape[1],
 scaled_img = cv2.resize(previous_img, (int(previous_img.shape[1] * scale), int(previous_img.shape[0] * scale)))
 current_width = scaled_img.shape[1] 
 current_height = scaled_img.shape[0] 
-slide = insert_photo(bg_frame.copy(), scaled_img)
+background0_color = bincount_app(previous_img)
+background1_color = bincount_app(current_img)
+background0_overlay = np.zeros([480, 800, 3], dtype=np.uint8)
+background1_overlay = np.zeros([480, 800, 3], dtype=np.uint8)
+background0_overlay[:,:] = bincount_app(previous_img)
+background1_overlay[:,:] = bincount_app(current_img)
+matting0 = cv2.addWeighted(bg_frame.copy(), 0.50, background0_overlay.copy(), 0.50, 0)
+matting1 = cv2.addWeighted(bg_frame.copy(), 0.50, background1_overlay.copy(), 0.50, 0)
+slide = insert_photo(matting1.copy(), scaled_img)
 cv2.imshow('Cam', slide)
 while(True): 
     x += 1
     j += 1
-    print(x)
     if x > 2000:
         x = 0
     elif x == 1:
         current_width = scaled_img.shape[1] 
         current_height = scaled_img.shape[0] 
-        slide = insert_photo(bg_frame.copy(), scaled_img)
-        cv2.imshow('Cam', slide)
+        slide = insert_photo(matting1.copy(), scaled_img)
+        #cv2.imshow('Cam', slide)
     elif x == 1800:
         previous_img = current_img.copy()
         file_index = random.randrange(0, len(filenames))
         current_img = cv2.imread(filenames[file_index])
-        try:
-            buffer = requests.get(url).text
-            server_filenames = json.loads(str(buffer)).get('files')
-            local_filenames = glob.glob(os.path.join(path, "*"))
-            for s in server_filenames:
-                if s not in [i.replace(local_base, "") for i in local_filenames]:
-                    urllib.request.urlretrieve(image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
-                    filenames = glob.glob(os.path.join(path, "*"))
-            if current_img.shape[1] > max_width or current_img.shape[0] > max_height:
-                scale = min(max_width / current_img.shape[1], max_height / current_img.shape[0])
-                scaled_img = cv2.resize(current_img, (int(current_img.shape[1] * scale), int(current_img.shape[0] * scale))).copy() 
-            else:
-                scaled_img = current_img.copy()
-        except:
-            if current_img.shape[1] > max_width or current_img.shape[0] > max_height:
-                scale = min(max_width / current_img.shape[1], max_height / current_img.shape[0])
-                scaled_img = cv2.resize(current_img, (int(current_img.shape[1] * scale), int(current_img.shape[0] * scale))).copy() 
-            else:
-                scaled_img = current_img.copy()
+        background0_color = bincount_app(previous_img)
+        background1_color = bincount_app(current_img)
+        background0_overlay = np.zeros([480, 800, 3], dtype=np.uint8)
+        background1_overlay = np.zeros([480, 800, 3], dtype=np.uint8)
+        background0_overlay[:,:] = bincount_app(previous_img)
+        background1_overlay[:,:] = bincount_app(current_img)
+        matting0 = background0_overlay.copy()
+        matting1 = background1_overlay.copy()
+        if current_img.shape[1] > max_width or current_img.shape[0] > max_height:
+            scale = min(max_width / current_img.shape[1], max_height / current_img.shape[0])
+            scaled_img = cv2.resize(current_img, (int(current_img.shape[1] * scale), int(current_img.shape[0] * scale))).copy() 
+        else:
+            scaled_img = current_img.copy()
     elif x > 1900:
         current_width -= 1
         current_height -= 1 
         fade_img = cv2.resize(previous_img, (current_width, current_height))
-        slide = insert_photo(bg_frame.copy(), fade_img)
-        slide2 = insert_photo(bg_frame.copy(), scaled_img)
-        image_new = cv2.addWeighted(slide2, (x-1900)/100, slide, 1 - (x-1900)/100, 0)
+        slide0 = insert_photo(matting0.copy(), fade_img)
+        slide1 = insert_photo(matting1.copy(), scaled_img)
+        image_new = cv2.addWeighted(slide1, (x-1900)/100, slide0, 1 - (x-1900)/100, 0)
         cv2.imshow('Cam', image_new)
         
     if cv2.waitKey(1) & 0xFF == ord('s'): 
