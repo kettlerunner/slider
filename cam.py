@@ -83,8 +83,8 @@ while(True):
     elif x > 1900:
         current_width -= 1
         current_height -= 1 
-        scaled_img = cv2.resize(scaled_img, (current_width, current_height))
-        slide = insert_photo(bg_frame.copy(), scaled_img)
+        fade_img = cv2.resize(scaled_img, (current_width, current_height))
+        slide = insert_photo(bg_frame.copy(), fade_img)
         cv2.imshow('Cam', slide)
         
     if cv2.waitKey(1) & 0xFF == ord('s'): 
