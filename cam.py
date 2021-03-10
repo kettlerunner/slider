@@ -70,7 +70,7 @@ while(True):
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
     elif x == 1800:
-      buffer = requests.get(url).text
+        buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
         for s in server_filenames:
