@@ -60,10 +60,14 @@ while(True):
         x = 0
     elif x == 1:
         slide = insert_photo(bg_frame.copy(), scaled_img)
+        previous_img = current_img.copy()
+        current_img = on_deck_img.copy()
+        slide = insert_photo(bg_frame.copy(), current_img)
         cv2.imshow('Cam', slide)
     elif x == 1800:
         previous_img = current_img.copy()
-        current_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
+        current_img = on_deck_img.copy()
+        on_deck_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
         buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
@@ -73,9 +77,9 @@ while(True):
                 urllib.request.urlretrieve(
                     image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
                 filenames = glob.glob(os.path.join(path, "*"))
-        if current_img.shape[1] > max_width or current_img.shape[0] > max_height:
-            scale = min(max_width / current_img.shape[1], max_height / current_img.shape[0])
-            scaled_img = cv2.resize(current_img, (int(current_img.shape[1] * scale), int(current_img.shape[0] * scale))).copy()
+        if on_deck_img.shape[1] > max_width or on_deck_img.shape[0] > max_height:
+            scale = min(max_width / on_deck_img.shape[1], max_height / on_deck_img.shape[0])
+            on_deck_img = cv2.resize(on_deck_img, (int(on_deck_img.shape[1] * scale), int(on_deck_img.shape[0] * scale))).copy()
             current_width = scaled_img.shape[1] 
             current_height = scaled_img.shape[0] 
         else:
@@ -85,7 +89,7 @@ while(True):
     elif x > 1900:
         current_width -= 1
         current_height -= 1 
-        fade_img = cv2.resize(scaled_img, (current_width, current_height))
+        fade_img = cv2.resize(current_img, (current_width, current_height))
         slide = insert_photo(bg_frame.copy(), fade_img)
         cv2.imshow('Cam', slide)
         
