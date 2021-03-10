@@ -43,6 +43,7 @@ filenames = glob.glob(os.path.join(path, "*"))
 x = 0
 j = 0
 
+current_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
 scale = min(max_width / previous_img.shape[1],
                         max_height / previous_img.shape[0])
