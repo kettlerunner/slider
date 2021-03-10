@@ -88,7 +88,7 @@ while(True):
         next_width = scaled_img.shape[1] - (x - 1900)
         next_height = scaled_img.shape[0] - (x - 1900)
         fade_img = cv2.resize(previous_img, (current_width, current_height))
-        fade_img2 = cv2.resize(previous_img, (next_width, next_height))
+        fade_img2 = cv2.resize(current_img, (next_width, next_height))
         slide = insert_photo(bg_frame.copy(), fade_img)
         slide2 = insert_photo(bg_frame.copy(), fade_img2)
         image_new = cv2.addWeighted(slide2, (x-1900)/100, slide, 1 - (x-1900)/100, 0)
