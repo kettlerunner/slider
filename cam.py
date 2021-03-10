@@ -81,7 +81,7 @@ while(True):
                 filenames = glob.glob(os.path.join(path, "*"))
         filename = filenames[random.randrange(0, len(filenames))]
         print(filename)
-    elif x > 1800:
+    elif x > 1900:
         current_width -= 1
         current_height -= 1 
         fade_img = cv2.resize(scaled_img, (current_width, current_height))
