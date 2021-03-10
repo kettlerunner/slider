@@ -77,7 +77,7 @@ while(True):
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
                       
-    if cv2.waitKey(1) & 0xFF == ord('s'): 
+    if cv2.waitKey(0) & 0xFF == ord('s'): 
         break
  
 video.release() 
