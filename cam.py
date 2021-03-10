@@ -83,6 +83,8 @@ while(True):
         current_height -= 1 
         fade_img = cv2.resize(previous_img, (current_width, current_height))
         slide = insert_photo(bg_frame.copy(), fade_img)
+        slide2 = insert_photo(bg_frame.copy(), scaled_img)
+        image_new = cv2.addWeighted(slide, 0.25, slide2, 1 - 0.25, 0)
         cv2.imshow('Cam', slide)
         
     if cv2.waitKey(1) & 0xFF == ord('s'): 
