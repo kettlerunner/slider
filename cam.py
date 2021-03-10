@@ -69,8 +69,8 @@ while(True):
         x = 0
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
-    elif x > 1800:
-        buffer = requests.get(url).text
+    elif x == 1800:
+      buffer = requests.get(url).text
         server_filenames = json.loads(str(buffer)).get('files')
         local_filenames = glob.glob(os.path.join(path, "*"))
         for s in server_filenames:
@@ -81,6 +81,7 @@ while(True):
                 filenames = glob.glob(os.path.join(path, "*"))
         filename = filenames[random.randrange(0, len(filenames))]
         print(filename)
+    elif x > 1800:
         current_width -= 1
         current_height -= 1 
         fade_img = cv2.resize(scaled_img, (current_width, current_height))
