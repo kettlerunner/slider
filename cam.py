@@ -56,17 +56,6 @@ while(True):
     j += 1
     print(x)
     if x > 2000:
-        buffer = requests.get(url).text
-        server_filenames = json.loads(str(buffer)).get('files')
-        local_filenames = glob.glob(os.path.join(path, "*"))
-        for s in server_filenames:
-            if s not in [i.replace(local_base, "") for i in local_filenames]:
-                print(s)
-                urllib.request.urlretrieve(
-                    image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
-                filenames = glob.glob(os.path.join(path, "*"))
-        filename = filenames[random.randrange(0, len(filenames))]
-        print(filename)
         previous_img = cv2.imread(filename)
         if previous_img.shape[1] > max_width or previous_img.shape[0] > max_height:
             scale = min(max_width / previous_img.shape[1], max_height / previous_img.shape[0])
@@ -81,6 +70,17 @@ while(True):
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
     elif x > 1800:
+        buffer = requests.get(url).text
+        server_filenames = json.loads(str(buffer)).get('files')
+        local_filenames = glob.glob(os.path.join(path, "*"))
+        for s in server_filenames:
+            if s not in [i.replace(local_base, "") for i in local_filenames]:
+                print(s)
+                urllib.request.urlretrieve(
+                    image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
+                filenames = glob.glob(os.path.join(path, "*"))
+        filename = filenames[random.randrange(0, len(filenames))]
+        print(filename)
         current_width -= 1
         current_height -= 1 
         fade_img = cv2.resize(scaled_img, (current_width, current_height))
