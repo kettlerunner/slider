@@ -85,7 +85,7 @@ while(True):
         slide = insert_photo(bg_frame.copy(), fade_img)
         slide2 = insert_photo(bg_frame.copy(), scaled_img)
         image_new = cv2.addWeighted(slide, 0.25, slide2, 1 - 0.25, 0)
-        cv2.imshow('Cam', slide)
+        cv2.imshow('Cam', image_new)
         
     if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
