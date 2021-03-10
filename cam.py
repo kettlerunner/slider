@@ -85,8 +85,8 @@ while(True):
     elif x > 1900:
         current_width -= 1
         current_height -= 1 
-        next_width = scaled_img.shape[1] - (x - 1900)
-        next_height = scaled_img.shape[0] - (x - 1900)
+        next_width = scaled_img.shape[1] -(100 + (x - 1900))
+        next_height = scaled_img.shape[0] - (100 + (x - 1900))
         fade_img = cv2.resize(previous_img, (current_width, current_height))
         fade_img2 = cv2.resize(current_img, (next_width, next_height))
         slide = insert_photo(bg_frame.copy(), fade_img)
