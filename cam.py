@@ -64,20 +64,24 @@ while(True):
         slide = insert_photo(bg_frame.copy(), scaled_img)
         cv2.imshow('Cam', slide)
     elif x == 1800:
-        previous_img = current_img.copy()
-        current_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
-        buffer = requests.get(url).text
-        server_filenames = json.loads(str(buffer)).get('files')
-        local_filenames = glob.glob(os.path.join(path, "*"))
-        for s in server_filenames:
-            if s not in [i.replace(local_base, "") for i in local_filenames]:
-                urllib.request.urlretrieve(image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
-                filenames = glob.glob(os.path.join(path, "*"))
-        if current_img.shape[1] > max_width or current_img.shape[0] > max_height:
-            scale = min(max_width / current_img.shape[1], max_height / current_img.shape[0])
-            scaled_img = cv2.resize(current_img, (int(current_img.shape[1] * scale), int(current_img.shape[0] * scale))).copy() 
-        else:
-            scaled_img = current_img.copy()
+        try:
+            previous_img = current_img.copy()
+            current_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
+            buffer = requests.get(url).text
+            server_filenames = json.loads(str(buffer)).get('files')
+            local_filenames = glob.glob(os.path.join(path, "*"))
+            for s in server_filenames:
+                if s not in [i.replace(local_base, "") for i in local_filenames]:
+                    urllib.request.urlretrieve(image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
+                    filenames = glob.glob(os.path.join(path, "*"))
+            if current_img.shape[1] > max_width or current_img.shape[0] > max_height:
+                scale = min(max_width / current_img.shape[1], max_height / current_img.shape[0])
+                scaled_img = cv2.resize(current_img, (int(current_img.shape[1] * scale), int(current_img.shape[0] * scale))).copy() 
+            else:
+                scaled_img = current_img.copy()
+        except:
+            previous_img = current_img.copy()
+            print("network error")
     elif x > 1900:
         current_width -= 1
         current_height -= 1 
