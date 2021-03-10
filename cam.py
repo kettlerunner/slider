@@ -12,8 +12,6 @@ cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 current_width = 0
 current_height = 0
-next_width = 0
-next_height = 0
 
 def insert_photo(bg_image, insert_image):
   bg_width = bg_image.shape[1]
@@ -85,10 +83,8 @@ while(True):
     elif x > 1900:
         current_width -= 1
         current_height -= 1 
-        next_width = scaled_img.shape[1] +(100 - (x - 1900))
-        next_height = scaled_img.shape[0] + (100 - (x - 1900))
         fade_img = cv2.resize(previous_img, (current_width, current_height))
-        fade_img2 = cv2.resize(current_img, (next_width, next_height))
+        fade_img2 = current_img.copy()
         slide = insert_photo(bg_frame.copy(), fade_img)
         slide2 = insert_photo(bg_frame.copy(), fade_img2)
         image_new = cv2.addWeighted(slide2, (x-1900)/100, slide, 1 - (x-1900)/100, 0)
