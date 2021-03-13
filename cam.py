@@ -72,6 +72,14 @@ while(True):
     if x > 2000:
         x = 0
     elif x == 1:
+        buffer = requests.get(url).text
+        server_filenames = json.loads(str(buffer)).get('files')
+        local_filenames = glob.glob(os.path.join(path, "*"))
+        for s in server_filenames:
+            if s not in [i.replace(local_base, "") for i in local_filenames]:
+                print(s)
+                urllib.request.urlretrieve(image_locations + s, local_base + s)
+                filenames = glob.glob(os.path.join(path, "*"))
         current_width = scaled_img.shape[1] 
         current_height = scaled_img.shape[0] 
         slide = insert_photo(matting1.copy(), scaled_img)
