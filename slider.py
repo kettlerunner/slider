@@ -32,6 +32,8 @@ while True:
     x = 0
     while True:
         if x == 0:
+            for filename in filenames:
+                print(filenames)
             buffer = requests.get(url).text
             server_filenames = json.loads(str(buffer)).get('files')
             local_filenames = glob.glob(os.path.join(path, "*"))
