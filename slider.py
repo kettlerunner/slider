@@ -38,8 +38,7 @@ while True:
             for s in server_filenames:
                 if s not in [i.replace(local_base, "") for i in local_filenames]:
                     print(s)
-                    urllib.request.urlretrieve(
-                        image_locations + s.replace(" ", "%20"), local_base + s.replace(" ", "%20"))
+                    urllib.request.urlretrieve(image_locations + s, local_base + s)
                     filenames = glob.glob(os.path.join(path, "*"))
             if j == 0:
                 previous_img = cv2.imread(filenames[random.randrange(0, len(filenames))])
