@@ -12,6 +12,7 @@ cv2.namedWindow('Cam', cv2.WINDOW_FREERATIO)
 cv2.setWindowProperty('Cam', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 current_width = 0
 current_height = 0
+slide_transition = 0
 
 def bincount_app(a):
     a2D = a.reshape(-1,a.shape[-1])
@@ -102,13 +103,33 @@ while(True):
         else:
             scaled_img = current_img.copy()
     elif x > 1900:
-        current_width -= 1
-        current_height -= 1 
-        fade_img = cv2.resize(previous_img, (current_width, current_height))
-        slide0 = insert_photo(matting0.copy(), fade_img)
-        slide1 = insert_photo(matting1.copy(), scaled_img)
-        image_new = cv2.addWeighted(slide1, (x-1900)/100, slide0, 1 - (x-1900)/100, 0)
-        cv2.imshow('Cam', image_new)
+        if x == 1901:
+            slide_transition = random.randrange(0, 3)
+            print(slide_transition)
+        if slide_transition == 0:
+            current_width -= 1
+            current_height -= 1 
+            fade_img = cv2.resize(previous_img, (current_width, current_height))
+            slide0 = insert_photo(matting0.copy(), fade_img)
+            slide1 = insert_photo(matting1.copy(), scaled_img)
+            image_new = cv2.addWeighted(slide1, (x-1900)/100, slide0, 1 - (x-1900)/100, 0)
+            cv2.imshow('Cam', image_new)
+        elif slide_transition == 1:
+            fade_img = cv2.resize(previous_img, (current_width, current_height))
+            slide0 = insert_photo(matting0.copy(), fade_img)
+            slide1 = insert_photo(matting1.copy(), scaled_img)
+            image_new = slide0.copy()
+            image_new[0:241,0:int((x-1900)/100.0*800)] = slide1[0:241:,-int((x-1900)/100.0*800):800]
+            image_new[241:481,-int((x-1900)/100.0*800):800] = slide1[241:481:,0:int((x-1900)/100.0*800)]
+            cv2.imshow('Cam', image_new)
+        elif slide_transition == 2:
+            fade_img = cv2.resize(previous_img, (current_width, current_height))
+            slide0 = insert_photo(matting0.copy(), fade_img)
+            slide1 = insert_photo(matting1.copy(), scaled_img)
+            image_new = slide0.copy()
+            image_new[0:int((x-1900)/100.0*800), 0:401] = slide1[-int((x-1900)/100.0*800):480:,0:401]
+            image_new[-int((x-1900)/100.0*800):800, 400:801] = slide1[0:int((x-1900)/100.0*800), 400:801]
+            cv2.imshow('Cam', image_new)
         
     if cv2.waitKey(1) & 0xFF == ord('s'): 
         break
