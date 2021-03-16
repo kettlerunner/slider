@@ -106,7 +106,7 @@ while(True):
         else:
             scaled_img = current_img.copy()
     elif x > 1900:
-                if x == 1901:
+        if x == 1901:
             slide_transition = random.randrange(0, 5)
             print(slide_transition)
         if slide_transition == 0:
