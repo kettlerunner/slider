@@ -23,7 +23,7 @@ def gen_frames():
         if not ret:
             break
         else:     
-            ret, buffer = cv2.imencode('.jpg', image)
+            ret, buffer = cv2.imencode('.jpg', gray)
             stream_frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + stream_frame + b'\r\n')
