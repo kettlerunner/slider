@@ -1,5 +1,7 @@
 from flask import Flask, render_template, Response
 import cv2
+import imutils
+
 app = Flask(__name__)
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FPS, 20)
@@ -10,6 +12,14 @@ def gen_frames():
     while True:
         ret, frame = cap.read()  # read the camera frame
         image = cv2.rotate(frame, cv2.cv2.ROTATE_90_CLOCKWISE)
+        resized_image = imutils.resize(image, width=500)
+        gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
+        gray = cv2.BaussianBlur(gray, (21, 21), 0)
+        
+        if firstFrame is None:
+            firstFrame = gray
+            continue
+            
         if not ret:
             break
         else:     
