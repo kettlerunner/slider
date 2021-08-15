@@ -8,6 +8,8 @@ cap.set(cv2.CAP_PROP_FPS, 20)
 cap.set(3, 640)
 cap.set(4, 480)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
+firstFrame = None
+
 def gen_frames():
     while True:
         ret, frame = cap.read()  # read the camera frame
