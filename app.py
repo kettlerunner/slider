@@ -15,6 +15,7 @@ def gen_frames():
     while True:
         ret, frame = cap.read()  # read the camera frame
         image = cv2.rotate(frame, cv2.cv2.ROTATE_90_CLOCKWISE)
+        image = cv2.flip(image, 1)
         resized_image = imutils.resize(image, width=500)
         gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
         gray = cv2.GaussianBlur(gray, (21, 21), 0)
