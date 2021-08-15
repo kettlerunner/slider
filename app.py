@@ -9,10 +9,11 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 def gen_frames():
     while True:
         ret, frame = cap.read()  # read the camera frame
+        image = cv2.rotate(frame, cv2.cv2.ROTATE_90_CLOCKWISE)
         if not ret:
             break
         else:     
-            ret, buffer = cv2.imencode('.jpg', frame)
+            ret, buffer = cv2.imencode('.jpg', image)
             stream_frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + stream_frame + b'\r\n')
