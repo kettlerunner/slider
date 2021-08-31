@@ -2,9 +2,6 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 framename = "WatchThis"
-cv2.namedWindow(framename, cv2.WINDOW_FREERATIO)
-frame = cv2.imread("frame.jpg")
-cv2.imshow(framename, frame)
 max_width = 600
 max_height = 300
 
