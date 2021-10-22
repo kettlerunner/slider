@@ -33,8 +33,8 @@ while True:
         image = image[ty:ty+300, tx:bx]
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
     else:
-        tx = int(img.shape[1]/2 - 150)
-        ty = int(img.shape[0]/2 - 150)
+        tx = int(image.shape[1]/2 - 150)
+        ty = int(image.shape[0]/2 - 150)
         image = image[ty:ty+300, tx:tx+300]
         
     scale = min(max_width / image.shape[1], max_height / image.shape[0])
