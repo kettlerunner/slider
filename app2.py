@@ -2,6 +2,7 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 framename = "WatchThis"
+face_cascade = cv2.CascadeClassifier('/home/pi/Scripts/therm/haarcascade_frontalface_default.xml')
 max_width = 600
 max_height = 400
 
