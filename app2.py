@@ -33,9 +33,7 @@ while True:
             bx = tx + 300 
         image = image[ty:ty+300, tx:bx]
         face_image = image[y:y+h, x:x+w]
-        dimensions = (300, 300)
-        resized = cv2.resize(face_image, dimensions, interpolation = cv2.INTER_AREA)
-        cv2.imshow(framename, resized)
+        cv2.imshow(framename, face_image)
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
     else:
         tx = int(image.shape[1]/2 - 150)
