@@ -30,14 +30,14 @@ while True:
         if bx > 480:
             tx = tx - (bx-480)
             bx = tx + 300 
-        img = img[ty:ty+300, tx:bx]
+        image = image[ty:ty+300, tx:bx]
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
     else:
         tx = int(img.shape[1]/2 - 150)
         ty = int(img.shape[0]/2 - 150)
-        img = img[ty:ty+300, tx:tx+300]
+        image = image[ty:ty+300, tx:tx+300]
         
-    scale = min(max_width / img.shape[1], max_height / img.shape[0])
+    scale = min(max_width / image.shape[1], max_height / image.shape[0])
     current_img = cv2.resize(image, (int(image.shape[1] * scale), int(image.shape[0] * scale)))
     cv2.imshow(framename, current_img)
     
