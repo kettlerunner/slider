@@ -3,7 +3,6 @@ import numpy as np
 
 cap = cv2.VideoCapture(0)
 framename = "WatchThis"
-facename = "Hello"
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 max_width = 300
 max_height = 300
@@ -34,16 +33,13 @@ while True:
             bx = tx + 300 
         image = image[ty:ty+300, tx:bx]
         face_image = image[y:y+h, x:x+w]
-        cv2.imshow(facename, face_image)
+        cv2.imshow(framename, image)
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
     else:
         tx = int(image.shape[1]/2 - 150)
         ty = int(image.shape[0]/2 - 150)
         image = image[ty:ty+300, tx:tx+300]
-        
-    
-    
-    cv2.imshow(framename, image)
+        cv2.imshow(framename, image)
     
     if cv2.waitKey(1) & 0xFF ==ord('q'):
         cv2.destroyAllWindows()
