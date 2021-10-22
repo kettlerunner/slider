@@ -19,7 +19,7 @@ while True:
         face_sizes.append(w*h)
         cv2.rectangle(image, (x-5, y-5), (x+w+5, y+h+5), (255, 255, 255), 2)
     
-   if len(face_sizes) > 0:
+    if len(face_sizes) > 0:
         (x, y, w, h) = faces[np.argmax(face_sizes)]
         tx = int(x+w/2-150)
         ty = int(y+h/2-150)
