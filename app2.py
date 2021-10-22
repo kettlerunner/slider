@@ -2,8 +2,8 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 framename = "WatchThis"
-max_width = 600
-max_height = 300
+max_width = 800
+max_height = 500
 
 
 while True:
