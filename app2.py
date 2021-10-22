@@ -4,8 +4,8 @@ import numpy as np
 cap = cv2.VideoCapture(0)
 framename = "WatchThis"
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-max_width = 600
-max_height = 400
+max_width = 500
+max_height = 300
 
 
 while True:
