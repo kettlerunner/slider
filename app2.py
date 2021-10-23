@@ -38,7 +38,7 @@ while True:
         dim = (width, height)
         print(dim)
         cv2.imshow(framename, face_image)
-        resized = cv2.resize(face_image, dim, interpolation = cv2.INTER_AREA)
+        #resized = cv2.resize(face_image, dim, interpolation = cv2.INTER_AREA)
         image = image[ty:ty+300, tx:bx]
         cv2.imshow(framename, face_image)
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
