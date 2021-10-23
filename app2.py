@@ -39,7 +39,6 @@ while True:
         tx = int(image.shape[1]/2 - 150)
         ty = int(image.shape[0]/2 - 150)
         image = image[ty:ty+300, tx:tx+300]
-        cv2.imshow(framename, image)
     
     if cv2.waitKey(1) & 0xFF ==ord('q'):
         cv2.destroyAllWindows()
