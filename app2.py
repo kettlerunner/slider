@@ -32,6 +32,11 @@ while True:
             tx = tx - (bx-480)
             bx = tx + 300
         face_image = image[y:y+h, x:x+w]
+        scale_percent = 300 / max(face_image.shape[0], face_image.shape[1])
+        width = scale_percent * face_image.shape[1]
+        height = scale_percent * face_image.shape[0]
+        dim = (width, height)
+        resized = cv2.resize(face_image, dim, interpolation = cv2.INTER_AREA)
         image = image[ty:ty+300, tx:bx]
         cv2.imshow(framename, face_image)
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
