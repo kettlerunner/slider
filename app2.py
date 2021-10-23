@@ -35,12 +35,10 @@ while True:
         scale_percent = 300 / max(face_image.shape[0], face_image.shape[1])
         width = scale_percent * face_image.shape[1]
         height = scale_percent * face_image.shape[0]
-        dim = (width, height)
-        print(dim)
-        cv2.imshow(framename, face_image)
-        #resized = cv2.resize(face_image, dim, interpolation = cv2.INTER_AREA)
+        dim = (width, height)        
+        resized = cv2.resize(face_image, (300, 300), interpolation = cv2.INTER_AREA)
         image = image[ty:ty+300, tx:bx]
-        cv2.imshow(framename, face_image)
+        cv2.imshow(framename, resized)
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
     else:
         tx = int(image.shape[1]/2 - 150)
