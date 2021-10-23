@@ -36,6 +36,8 @@ while True:
         width = scale_percent * face_image.shape[1]
         height = scale_percent * face_image.shape[0]
         dim = (width, height)
+        print(dim)
+        cv2.imshow(framename, face_image)
         resized = cv2.resize(face_image, dim, interpolation = cv2.INTER_AREA)
         image = image[ty:ty+300, tx:bx]
         cv2.imshow(framename, face_image)
