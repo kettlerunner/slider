@@ -30,9 +30,9 @@ while True:
         by = ty + 300
         if bx > 480:
             tx = tx - (bx-480)
-            bx = tx + 300 
-        image = image[ty:ty+300, tx:bx]
+            bx = tx + 300
         face_image = image[y:y+h, x:x+w]
+        image = image[ty:ty+300, tx:bx]
         cv2.imshow(framename, face_image)
         faces = faces[np.argmax(face_sizes):np.argmax(face_sizes)+1]
     else:
